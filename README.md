@@ -6,26 +6,29 @@ To run the project, please run the following command:
 
 First we need clone the project:
 
-> git clone <repo_url>
-
-> cd <project_name>
-
+```
+git clone <repo_url>
+```
+```
+cd <project_name>
+```
 After that, we need install all the dependencies:
-
-> npm install
-
+```
+npm install
+```
 or
-
-> yarn install
-
+```
+yarn install
+```
 
 Then we need to run the project:
-
-> npm start
-
+```
+npm start
+```
 or
-
-> yarn start
+```
+yarn start
+```
 
 ### Languages Used:
 - Language: React
