@@ -4,21 +4,28 @@ For the ones who will collaborate, please create your own branch and push to it.
 
 To run the project, please run the following command:
 
-```
-git clone project url
-```
+First we need clone the project:
 
-```
-npm install
-or
-yarn install
-```
+> git clone <repo_url>
 
-```
-npm start
+> cd <project_name>
+
+After that, we need install all the dependencies:
+
+> npm install
+
 or
-yarn start
-```
+
+> yarn install
+
+
+Then we need to run the project:
+
+> npm start
+
+or
+
+> yarn start
 
 ### Languages Used:
 - Language: React
