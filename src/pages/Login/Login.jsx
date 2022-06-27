@@ -91,7 +91,8 @@ const Login = () => {
 			// Save user UID, email and displayName, photoURL in localStorage
 			localStorage.setItem(
 				'user',
-				JSON.stringify({
+				JSON.stringify( {
+					uid: newUser.user.uid,
 					displayName: newUser.user.displayName,
 					photoURL: newUser.user.photoURL,
 				})

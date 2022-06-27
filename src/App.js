@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { Navbar } from './components';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { Home, Login, Register } from './pages';
+import { Home, Login, Register, PostMissing, ProtectedRoute } from './pages';
 import { useRecoilState } from 'recoil';
 import { userAtom } from './atoms/contextAtom';
-import { logout } from './lib/firebase';
+import Faker from './Faker';
 
 function App() {
 	const [user, setUser] = useRecoilState(userAtom);
@@ -28,6 +28,15 @@ function App() {
 					<Route path='/' element={<Home />} />
 					<Route path='/login' element={<Login />} />
 					<Route path='/register' element={<Register />} />
+					<Route
+						path='/postmissing'
+						element={
+							<ProtectedRoute>
+								<PostMissing />
+							</ProtectedRoute>
+						}
+					/>
+					<Route path='/fakerData' element={<Faker />} />
 				</Routes>
 			</div>
 		</div>
