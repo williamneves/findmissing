@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './Home.css'
 import { faker } from '@faker-js/faker';
 import {
 	db,
@@ -14,6 +15,7 @@ import {
 	where,
 	limit,
 } from '../../lib/firebase';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
 	const [fakeCards, setFakeCards] = useState([]);
@@ -99,22 +101,24 @@ const Home = () => {
 					return (
 						<div className='col mb-4' key={index}>
 							<div key={index} className='card h-100 overflow-hidden rounded-3'>
-								<img
-									src={card.data().profileIMG}
-									alt={card.data().name}
-									className='ratio ratio-1x1'
-								/>
+								<div className='image'>
+									<img
+										src={card.data().profileIMG}
+										alt={card.data().name}
+										className='img img-responsive full-width'
+									/>
+								</div>
 								<ul className='list-group list-group-flush'>
 									<li className='list-group-item'>
-										<a
-											href='#'
+										<Link
+											to={`/missing-person/${card.id}`}
 											alt='More Details'
 											className='mb-0 mt-2 text-decoration-none h4 text-dark d-flex justify-content-between align-items-center'>
 											<span>{card.data().name}</span>
-											<a href='' className='btn btn-sm btn-outline-primary'>
-												<i class='fa-solid fa-up-right-from-square'></i>
-											</a>
-										</a>
+											<button className='btn btn-sm btn-outline-primary'>
+												<i className='fa-solid fa-up-right-from-square'></i>
+											</button>
+										</Link>
 									</li>
 									<li className='list-group-item'>Age: {card.data().age}</li>
 									<li className='list-group-item'>Gender: {card.data().gender}</li>

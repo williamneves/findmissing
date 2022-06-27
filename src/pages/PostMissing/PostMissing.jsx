@@ -37,6 +37,7 @@ const PostMissing = () => {
 		},
 		moreDetails: '',
 		profileIMG: '',
+		contactInfo: '',
 		moreIMGs: '',
 	});
 	const [validationErrors, setValidationErrors] = useState({
@@ -53,6 +54,7 @@ const PostMissing = () => {
 		},
 		moreDetails: '',
 		profileIMG: '',
+		contactInfo: '',
 		moreIMGs: '',
 	});
 	const [loading, setLoading] = useState(false);
@@ -288,6 +290,21 @@ const PostMissing = () => {
 						/>
 						<Form.Control.Feedback type='invalid' className='text-end pe-2'>
 							{validationErrors.profileIMG}
+						</Form.Control.Feedback>
+					</Form.Group>
+					<Form.Group className='mb-3' controlId='registerContactInfo'>
+						<Form.Label>Contact Information</Form.Label>
+						<Form.Control
+							name='contactInfo'
+							type='text'
+							placeholder='Missing person name'
+							value={form.contactInfo}
+							onChange={handleChange}
+							isInvalid={validationErrors.contactInfo}
+							disabled={loading}
+						/>
+						<Form.Control.Feedback type='invalid' className='text-end pe-2'>
+							{validationErrors.contactInfo}
 						</Form.Control.Feedback>
 					</Form.Group>
 					{/* <Form.Group className='mb-3' controlId='registerMoreIMGs'>

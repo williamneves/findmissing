@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Navbar } from './components';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { Home, Login, Register, PostMissing, ProtectedRoute } from './pages';
+import { Home, Login, Register, PostMissing, ProtectedRoute, MissingPerson, Account } from './pages';
 import { useRecoilState } from 'recoil';
 import { userAtom } from './atoms/contextAtom';
 import Faker from './Faker';
@@ -36,6 +36,15 @@ function App() {
 							</ProtectedRoute>
 						}
 					/>
+					<Route
+						path='/account'
+						element={
+							<ProtectedRoute>
+								<Account />
+							</ProtectedRoute>
+						}
+					/>
+					<Route path='/missing-person/:id' element={<MissingPerson />} />
 					<Route path='/fakerData' element={<Faker />} />
 				</Routes>
 			</div>

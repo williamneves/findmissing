@@ -29,8 +29,8 @@ const Navbar = () => {
 			variant='dark'
 			className='mb-3 shadow-sm'>
 			<Container>
-				<NavbarBootstrap.Brand as='span' onClick={() => navigate('/')}>
-					FindMissing <i class='fa-duotone fa-person-circle-exclamation'></i>
+        <NavbarBootstrap.Brand as='span' onClick={ () => navigate( '/' )} style={{cursor:'pointer'}}>
+					FindMissing <i className='fa-duotone fa-person-circle-exclamation'></i>
 				</NavbarBootstrap.Brand>
 
 				<NavbarBootstrap.Toggle aria-controls='responsive-navbar-nav' />
@@ -39,12 +39,18 @@ const Navbar = () => {
 						<NavLink to='/postmissing' className='nav-link'>
 							Post Missing
 						</NavLink>
+						<NavLink to='/aboutUs' className='nav-link'>
+							About Us
+						</NavLink>
 					</Nav>
 					<Nav>
 						{user ? (
 							<div>
+								<Button variant='outline-light' className='me-3' onClick={()=>navigate('/account')}>
+                <i className="fa-regular fa-circle-user"></i>
+								</Button>
 								<Button variant='outline-light' className='' onClick={logout}>
-									Logout
+									Logout <i className="fa-regular fa-right-from-bracket"></i>
 								</Button>
 							</div>
 						) : (
