@@ -66,7 +66,7 @@ const Home = () => {
 	// Subscribe to missing persons collection
 	useEffect(() => {
 		setLoading(true);
-		onSnapshot(
+		const unSub = onSnapshot(
 			query(
 				collection(db, 'missingPersons'),
 				where('found', '==', false),
@@ -76,11 +76,19 @@ const Home = () => {
 				let shuffledList = shuffleArray(snapshot.docs);
 				
 				setMissingPersonsCard( shuffledList );
+				setLoading(false);
 			}
 		);
 		
+		return () => {
+			unSub();
+		}
 
-	}, [db, filters]);
+	}, [ db, filters ] );
+	
+	if ( loading ) {
+		return <div>Loading...</div>;
+	}
 
 
 	return (
@@ -110,7 +118,7 @@ const Home = () => {
 									</li>
 									<li className='list-group-item'>Age: {card.data().age}</li>
 									<li className='list-group-item'>Gender: {card.data().gender}</li>
-									<li className='list-group-item'>Approx. Weight: {card.data().weight} lbs.</li>
+									<li className='list-group-item'>~ {card.data().height} cm, ~  {card.data().weight} kg.</li>
 									<li className='list-group-item d-flex justify-content-between align-items-center'>
 										<span>
 											<em>Last known location:</em>
