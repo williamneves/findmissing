@@ -27,17 +27,17 @@ const Navbar = () => {
 			bg='dark'
 			variant='dark'
 			className='mb-3 shadow-sm'>
-      <Container>
-        <Link to='/' className='text-decoration-none'>
-        <NavbarBootstrap.Brand as='span'>
-					FindMissing
-          </NavbarBootstrap.Brand>
-        </Link>
+			<Container>
+				<Link to='/' className='text-decoration-none'>
+					<NavbarBootstrap.Brand as='span'>FindMissing</NavbarBootstrap.Brand>
+				</Link>
 
 				<NavbarBootstrap.Toggle aria-controls='responsive-navbar-nav' />
 				<NavbarBootstrap.Collapse id='responsive-navbar-nav'>
 					<Nav className='me-auto'>
-						<Nav.Link href='#features'>Post Missing</Nav.Link>
+						<Link to='/postmissing' className='text-decoration-none'>
+							<Nav.Link as='span'>Post Missing</Nav.Link>
+						</Link>
 					</Nav>
 					<Nav>
 						{user ? (

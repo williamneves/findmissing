@@ -32,8 +32,6 @@ const Register = () => {
 		password: '',
 		confirmPassword: '',
 	});
-	const [emailError, setEmailError] = useState('');
-	const [passwordError, setPasswordError] = useState('');
 	// Loading state
 	const [loading, setLoading] = useState(false);
 
@@ -45,7 +43,9 @@ const Register = () => {
 		setForm({
 			...form,
 			[e.target.name]: e.target.value,
-		});
+    } );
+    
+    
 
 		// Clear the error message when the user starts typing
 		if (e.target.name === 'name') {
@@ -184,6 +184,7 @@ const Register = () => {
       
       // Set user data to local storage
       localStorage.setItem( 'user', JSON.stringify( {
+        uid: createdUser.user.uid,
         displayName: createdUser.user.displayName,
         photoURL: createdUser.user.photoURL
       } ) );
