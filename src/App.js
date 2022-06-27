@@ -4,6 +4,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Home, Login, Register, PostMissing, ProtectedRoute } from './pages';
 import { useRecoilState } from 'recoil';
 import { userAtom } from './atoms/contextAtom';
+import Faker from './Faker';
 
 function App() {
 	const [user, setUser] = useRecoilState(userAtom);
@@ -35,6 +36,7 @@ function App() {
 							</ProtectedRoute>
 						}
 					/>
+					<Route path='/fakerData' element={<Faker />} />
 				</Routes>
 			</div>
 		</div>

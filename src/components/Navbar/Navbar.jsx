@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { Container, Nav, Navbar as NavbarBootstrap, Button } from 'react-bootstrap';
 import { signOut, auth } from '../../lib/firebase';
 import { useRecoilState } from 'recoil';
@@ -29,15 +29,15 @@ const Navbar = () => {
 			className='mb-3 shadow-sm'>
 			<Container>
 				<Link to='/' className='text-decoration-none'>
-					<NavbarBootstrap.Brand as='span'>FindMissing</NavbarBootstrap.Brand>
+					<NavbarBootstrap.Brand as='span'>FindMissing <i class="fa-duotone fa-person-circle-exclamation"></i></NavbarBootstrap.Brand>
 				</Link>
 
 				<NavbarBootstrap.Toggle aria-controls='responsive-navbar-nav' />
 				<NavbarBootstrap.Collapse id='responsive-navbar-nav'>
 					<Nav className='me-auto'>
-						<Link to='/postmissing' className='text-decoration-none'>
-							<Nav.Link as='span'>Post Missing</Nav.Link>
-						</Link>
+						<NavLink to='/postmissing' className='nav-link'>
+							Post Missing
+						</NavLink>
 					</Nav>
 					<Nav>
 						{user ? (

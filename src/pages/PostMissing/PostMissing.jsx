@@ -11,6 +11,9 @@ import {
 	doc,
 	setDoc,
 	getDoc,
+	updateDoc,
+	addDoc,
+	collection,
 	serverTimestamp,
 	storage,
 	ref,
@@ -32,7 +35,7 @@ const PostMissing = () => {
 			lat: '',
 			long: '',
 		},
-		modeDetails: '',
+		moreDetails: '',
 		profileIMG: '',
 		moreIMGs: '',
 	});
@@ -48,7 +51,7 @@ const PostMissing = () => {
 			lat: '',
 			long: '',
 		},
-		modeDetails: '',
+		moreDetails: '',
 		profileIMG: '',
 		moreIMGs: '',
 	});
@@ -69,19 +72,83 @@ const PostMissing = () => {
 		});
 	};
 
+
 	// Handle the submit of the form
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		// Set loading to true
+		setLoading(true);
+		// Create a toast to show the user that the form is loading
+		const toastId = toast.loading('Loading...');
 
-		// handle the upload of the profile image
-		const profileIMGReader = new FileReader();
-		console.log(e.target.profileIMG.files[0]);
-		console.log(e.target.moreIMGs.files);
+		// Validate the form
+		// Check if this file is an image
+		if (!e.target.profileIMG.files[0].type.includes('image')) {
+			setValidationErrors({
+				...validationErrors,
+				profileIMG: 'This file is not an image',
+			});
+			setLoading(false);
+			toast.error('This file is not an image', { id: toastId });
+			return;
+		}
+
+		// Check if the file is too big
+		if (e.target.profileIMG.files[0].size > 10000000) {
+			setValidationErrors({
+				...validationErrors,
+				profileIMG: 'This file is too big',
+			});
+			setLoading(false);
+			toast.error('This file is too big', { id: toastId });
+			return;
+		}
+
+		// Create missing person object
+		const missingPerson = {
+			...form,
+			found: false,
+			creator: user,
+			createdAt: serverTimestamp(),
+		};
+
+		try {
+			// Add the missing person to the database
+			const missingPersonRef = await addDoc(collection(db, 'missingPersons'), missingPerson);
+
+			toast.loading('Uploading...', { id: toastId });
+
+			// Upload the profile image
+			const profileIMGReader = new FileReader();
+			if (e.target.profileIMG.files[0]) {
+				profileIMGReader.readAsDataURL(e.target.profileIMG.files[0]);
+			}
+
+			// Upload the profile image
+			profileIMGReader.onload = async (readerEvent) => {
+				const profileIMGRef = ref(storage, `missingPersons/${missingPersonRef.id}/profileIMG`);
+
+				await uploadString(profileIMGRef, readerEvent.target.result, 'data_url').then(async () => {
+					// update the missing person with the profile image url
+					const profileIMGURL = await getDownloadURL(profileIMGRef);
+					await updateDoc(doc(db, 'missingPersons', missingPersonRef.id), {
+						profileIMG: profileIMGURL,
+					});
+					console.log('Profile image uploaded');
+					toast.success('Profile image uploaded', { id: toastId });
+					setLoading(false);
+				});
+			};
+		} catch (error) {
+			console.log(error);
+			toast.error(error.message, { id: toastId });
+			setLoading(false);
+		}
 	};
 
 	return (
-		<div className='row mx-auto py-3 rounded-3'>
-			<div className='card p-3'>
+		<div className='row mx-auto py-3'>
+			<div className='card p-3 rounded-3 col col-lg-6 col-md-9 mx-auto'>
 				<h1>Post Missing</h1>
 				<Form noValidate onSubmit={handleSubmit}>
 					<Form.Group className='mb-3' controlId='registerName'>
@@ -136,6 +203,7 @@ const PostMissing = () => {
 							name='gender'
 							aria-label='Gender'
 							value={form.gender}
+							disabled={loading}
 							onChange={handleChange}>
 							<option>-</option>
 							<option>Male</option>
@@ -194,18 +262,18 @@ const PostMissing = () => {
 					<Form.Group className='mb-3' controlId='registerMoreDetails'>
 						<Form.Label>More Details</Form.Label>
 						<Form.Control
-							name='modeDetails'
+							name='moreDetails'
 							type='text'
 							placeholder='Aproximated last known location'
-							value={form.modeDetails}
+							value={form.moreDetails}
 							onChange={handleChange}
-							isInvalid={validationErrors.modeDetails}
+							isInvalid={validationErrors.moreDetails}
 							disabled={loading}
 							as='textarea'
 							rows={4}
 						/>
 						<Form.Control.Feedback type='invalid' className='text-end pe-2'>
-							{validationErrors.modeDetails}
+							{validationErrors.moreDetails}
 						</Form.Control.Feedback>
 					</Form.Group>
 					<Form.Group className='mb-3' controlId='registerProfileIMG'>
@@ -222,7 +290,7 @@ const PostMissing = () => {
 							{validationErrors.profileIMG}
 						</Form.Control.Feedback>
 					</Form.Group>
-					<Form.Group className='mb-3' controlId='registerMoreIMGs'>
+					{/* <Form.Group className='mb-3' controlId='registerMoreIMGs'>
 						<Form.Label>More Images if needed</Form.Label>
 						<Form.Control
 							name='moreIMGs'
@@ -232,7 +300,7 @@ const PostMissing = () => {
 							disabled={loading}
 							multiple={true}
 						/>
-					</Form.Group>
+					</Form.Group> */}
 					<button type='submit' className='btn btn-sm btn-primary w-100'>
 						{loading ? 'Loading...' : 'Register'}
 					</button>
