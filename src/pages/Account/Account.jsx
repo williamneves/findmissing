@@ -20,7 +20,6 @@ import 'moment-timezone';
 import ViewReportModal from '../../components/ViewReportModal/ViewReportModal';
 
 const Account = () => {
-	const [count, setCount] = useState(1);
 	const [user, setUser] = useRecoilState(userAtom);
 	const [missingPersonsList, setMissingPersonsList] = useState([]);
 	const [loading, setLoading] = useState(false);
@@ -121,10 +120,6 @@ const Account = () => {
 
 				console.log(error);
 			});
-	};
-
-	const countPlusOne = () => {
-		setCount(count + 1);
 	};
 
 	return (

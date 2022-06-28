@@ -147,7 +147,10 @@ const Home = () => {
 
 	return (
 		<>
-			<h1>Find missing one</h1>
+			<h4>Maybe you know someone...</h4>
+			<h6 className='text-muted'>Let's help people find their loved ones again.</h6>
+			<small className='text-muted fst-italic'>If you recognize anyone, click in Report!</small>
+			<hr />
 			<div className='row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 justify-content-start align-items-start align-items-stretch'>
 				{missingPersonsCard.map((card, index) => {
 					return (
