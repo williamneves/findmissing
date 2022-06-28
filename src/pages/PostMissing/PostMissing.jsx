@@ -84,6 +84,25 @@ const PostMissing = () => {
 		const toastId = toast.loading('Loading...');
 
 		// Validate the form
+		if ( form.name.length < 1 ) {
+			setValidationErrors( {
+				...validationErrors,
+				name: 'Please enter a name',
+			} );
+			setLoading( false );
+			toast.error( 'Check the form errors', { id: toastId } );
+			return;
+		}
+		if ( e.target.profileIMG.files.length === 0 ) {
+			setValidationErrors( {
+				...validationErrors,
+				profileIMG: 'Please upload a profile image',
+			} );
+			setLoading( false );
+			toast.error( 'Check the form errors', { id: toastId } );
+			return;
+		}
+			
 		// Check if this file is an image
 		if (!e.target.profileIMG.files[0].type.includes('image')) {
 			setValidationErrors({
@@ -153,7 +172,7 @@ const PostMissing = () => {
 		<div className='row mx-auto py-3'>
 			<div className='card p-3 rounded-3 col col-lg-6 col-md-9 mx-auto'>
 				<h1>Post Missing</h1>
-				<Form noValidate onSubmit={handleSubmit}>
+				<Form onSubmit={handleSubmit}>
 					<Form.Group className='mb-3' controlId='registerName'>
 						<Form.Label>Missing person name</Form.Label>
 						<Form.Control
@@ -164,6 +183,7 @@ const PostMissing = () => {
 							onChange={handleChange}
 							isInvalid={validationErrors.name}
 							disabled={loading}
+							// required
 						/>
 						<Form.Control.Feedback type='invalid' className='text-end pe-2'>
 							{validationErrors.name}
@@ -288,6 +308,7 @@ const PostMissing = () => {
 							onChange={handleChange}
 							isInvalid={validationErrors.profileIMG}
 							disabled={loading}
+							// required
 						/>
 						<Form.Control.Feedback type='invalid' className='text-end pe-2'>
 							{validationErrors.profileIMG}
