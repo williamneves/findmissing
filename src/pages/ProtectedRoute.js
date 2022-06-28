@@ -30,7 +30,7 @@ const ProtectedRoute = ({children}) => {
 
 		// Redirect to login page
 		toast.error('You must be logged to access this page');
-		return <Navigate to='/login' replace />;
+		return <Navigate to='/' replace />;
 	}
 };
 

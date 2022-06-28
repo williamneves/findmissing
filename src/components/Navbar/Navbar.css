@@ -1,0 +1,23 @@
+.uk-flag{
+  width: 20px;
+  height: 16px;
+  transform: skew(1deg, 354deg);
+  box-shadow: 2px 3px 4px 0px #005bbb87;
+}
+.navbarUK{
+  border-bottom: 3px solid #FFD500!important;
+  border-top: 3px solid #005bbb87!important;
+}
+/* first child background color yellow */
+.uk-flag > div:first-child{
+  width: 100%;
+  height: 50%;
+  background-color: #005BBB;
+}
+
+/* second child background color blue */
+.uk-flag > div:nth-child(2){
+  background-color: #FFD500;
+  width: 100%;
+  height: 50%;
+}
