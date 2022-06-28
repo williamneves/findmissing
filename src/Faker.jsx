@@ -41,6 +41,7 @@ const Faker = () => {
 			profileIMG: faker.image.avatar(),
 			found: false,
 			creator: user,
+			archived: false,
 			createdAt: serverTimestamp(),
 		};
 
@@ -49,7 +50,7 @@ const Faker = () => {
 
 	// Create X random people
 	const list = [];
-	const totalPersons = 15;
+	const totalPersons = 10;
 	const aproxAge = (min, max) => {
 		min = Math.ceil(min);
 		max = Math.floor(max);
@@ -68,10 +69,10 @@ const Faker = () => {
 
 	for (let i = 0; i < totalPersons; i++) {
 		let fakePerson = funcfakePerson(
-			'Male',
-			aproxAge(11, 17),
+			'Female',
+			aproxAge(14, 37),
 			aproxHeight(45, 170),
-			aproxWeight(25, 60)
+			aproxWeight(25, 70)
 		);
 		list.push(fakePerson);
 	}

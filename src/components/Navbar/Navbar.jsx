@@ -5,6 +5,7 @@ import { signOut, auth } from '../../lib/firebase';
 import { useRecoilState } from 'recoil';
 import { userAtom } from '../../atoms/contextAtom';
 import toast from 'react-hot-toast';
+import './Navbar.css';
 
 const Navbar = () => {
 	const [user, setUser] = useRecoilState(userAtom);
@@ -27,10 +28,21 @@ const Navbar = () => {
 			expand='lg'
 			bg='dark'
 			variant='dark'
-			className='mb-3 shadow-sm'>
+			className='mb-3 shadow-sm navbarUK shadow'>
 			<Container>
-				<NavbarBootstrap.Brand as='span' onClick={() => navigate('/')}>
-					FindMissing <i class='fa-duotone fa-person-circle-exclamation'></i>
+				<NavbarBootstrap.Brand
+					as='div'
+					className='d-flex align-items-center'
+					onClick={() => navigate('/')}
+					style={{ cursor: 'pointer' }}>
+					<div className='me-1'>
+						<i className='fa-duotone fa-family'></i> TogetherAgain
+					</div>
+					
+					<div className='uk-flag'>
+						<div></div>
+						<div></div>
+					</div>
 				</NavbarBootstrap.Brand>
 
 				<NavbarBootstrap.Toggle aria-controls='responsive-navbar-nav' />
@@ -39,12 +51,21 @@ const Navbar = () => {
 						<NavLink to='/postmissing' className='nav-link'>
 							Post Missing
 						</NavLink>
+						<NavLink to='/aboutUs' className='nav-link'>
+							About Us
+						</NavLink>
 					</Nav>
 					<Nav>
 						{user ? (
 							<div>
+								<Button
+									variant='outline-light'
+									className='me-3'
+									onClick={() => navigate('/account')}>
+									<i className='fa-regular fa-circle-user'></i>
+								</Button>
 								<Button variant='outline-light' className='' onClick={logout}>
-									Logout
+									Logout <i className='fa-regular fa-right-from-bracket'></i>
 								</Button>
 							</div>
 						) : (
