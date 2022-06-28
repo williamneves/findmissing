@@ -22,6 +22,7 @@ import {
 } from '../../lib/firebase';
 
 const PostMissing = () => {
+	const navigate = useNavigate();
 	const [user, setUser] = useRecoilState(userAtom);
 	const [form, setForm] = useState({
 		name: '',
@@ -158,7 +159,25 @@ const PostMissing = () => {
 					});
 					console.log('Profile image uploaded');
 					toast.success('Profile image uploaded', { id: toastId });
-					setLoading(false);
+					setLoading( false );
+					setForm( {
+						name: '',
+						alias: '',
+						age: '',
+						gender: '',
+						height: '',
+						weight: '',
+						lastLocation: '',
+						lastLocationMap: {
+							lat: '',
+							long: '',
+						},
+						moreDetails: '',
+						profileIMG: '',
+						contactInfo: '',
+						moreIMGs: '',
+					} );
+					navigate('/account')
 				});
 			};
 		} catch (error) {

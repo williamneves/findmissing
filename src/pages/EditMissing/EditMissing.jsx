@@ -23,6 +23,7 @@ import {
 
 const PostMissing = () => {
 	const { id } = useParams();
+	const navigate = useNavigate();
 	const [user, setUser] = useRecoilState(userAtom);
 	const [form, setForm] = useState({
 		name: '',
@@ -69,7 +70,7 @@ const PostMissing = () => {
 				if (docSnap.exists()) {
 					// console.log('Document data:', docSnap.data());
 					setForm(docSnap.data());
-					console.log(docSnap.data());
+					// console.log(docSnap.data());
 					setLoading(false);
 				} else {
 					// doc.data() will be undefined in this case
@@ -170,7 +171,8 @@ const PostMissing = () => {
 							});
 							console.log('Profile image uploaded');
 							toast.success('Profile image uploaded', { id: toastId });
-							setLoading(false);
+							setLoading( false );
+							navigate('/account');
 						}
 					);
 				};
@@ -197,7 +199,8 @@ const PostMissing = () => {
 					...missingPerson,
 				});
 				toast.success('Updated', { id: toastId });
-				setLoading(false);
+				setLoading( false );
+				navigate('/account')
 			} catch (error) {
 				console.log(error);
 				toast.error(error.message, { id: toastId });

@@ -18,7 +18,9 @@ const Navbar = () => {
 			// Remove user from local storage
 			localStorage.removeItem('user');
 			// Remove user from state
-			setUser(null);
+			setUser( null );
+			// Redirect to home page
+			navigate('/');
 		});
 	};
 
